@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { HiMail, HiPhone, HiLocationMarker, HiDownload } from 'react-icons/hi'
+import { HiMail, HiLocationMarker, HiDownload } from 'react-icons/hi'
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa'
 
 const contactInfo = [

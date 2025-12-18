@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { HiAcademicCap, HiCalendar, HiTrophy } from 'react-icons/hi'
+import { HiAcademicCap, HiCalendar } from 'react-icons/hi'
 
 const education = [
   {
