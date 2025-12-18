@@ -12,17 +12,27 @@ interface Particle {
 
 export default function ConstellationBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const animationFrameRef = useRef<number>()
+  const animationFrameRef = useRef<number | undefined>(undefined)
   const particlesRef = useRef<Particle[]>([])
   const mouseRef = useRef({ x: 0, y: 0 })
   const [isHovered, setIsHovered] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!isMounted) return
+    
     const canvas = canvasRef.current
     if (!canvas) return
 
     const ctx = canvas.getContext('2d')
     if (!ctx) return
+
+    // Verificar que estamos en el navegador
+    if (typeof window === 'undefined') return
 
     // Configuración
     const particleCount = 80
@@ -32,11 +42,14 @@ export default function ConstellationBackground() {
 
     // Ajustar tamaño del canvas
     const resizeCanvas = () => {
+      if (typeof window === 'undefined') return
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
     }
     resizeCanvas()
-    window.addEventListener('resize', resizeCanvas)
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', resizeCanvas)
+    }
 
     // Crear partículas
     const createParticles = () => {
@@ -201,24 +214,42 @@ export default function ConstellationBackground() {
       setIsHovered(false)
     }
 
-    canvas.addEventListener('mousemove', handleMouseMove)
-    canvas.addEventListener('mouseenter', handleMouseEnter)
-    canvas.addEventListener('mouseleave', handleMouseLeave)
+    // Solo agregar event listeners si estamos en el navegador
+    if (typeof window !== 'undefined') {
+      canvas.addEventListener('mousemove', handleMouseMove)
+      canvas.addEventListener('mouseenter', handleMouseEnter)
+      canvas.addEventListener('mouseleave', handleMouseLeave)
+    }
 
-    // Iniciar animación
-    animate()
+    // Iniciar animación solo si estamos en el navegador
+    if (typeof window !== 'undefined') {
+      animate()
+    }
 
     // Cleanup
     return () => {
-      window.removeEventListener('resize', resizeCanvas)
-      canvas.removeEventListener('mousemove', handleMouseMove)
-      canvas.removeEventListener('mouseenter', handleMouseEnter)
-      canvas.removeEventListener('mouseleave', handleMouseLeave)
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current)
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', resizeCanvas)
+        if (animationFrameRef.current !== undefined) {
+          cancelAnimationFrame(animationFrameRef.current)
+        }
+      }
+      if (canvas) {
+        canvas.removeEventListener('mousemove', handleMouseMove)
+        canvas.removeEventListener('mouseenter', handleMouseEnter)
+        canvas.removeEventListener('mouseleave', handleMouseLeave)
       }
     }
-  }, [isHovered])
+  }, [isHovered, isMounted])
+
+  if (!isMounted) {
+    return (
+      <div
+        className="fixed inset-0 w-full h-full pointer-events-none z-0"
+        style={{ background: 'linear-gradient(to bottom, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%)' }}
+      />
+    )
+  }
 
   return (
     <canvas
