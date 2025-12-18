@@ -18,6 +18,14 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Espacio para el header fijo */
+}
+
+/* Mejorar scroll en móviles */
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 70px;
+  }
 }
 
 body {

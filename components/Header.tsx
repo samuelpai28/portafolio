@@ -27,11 +27,25 @@ export default function Header() {
   }, [])
 
   const handleNavClick = (href: string) => {
+    // Cerrar el menú móvil primero
     setIsMobileMenuOpen(false)
-    const element = document.querySelector(href)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
+    
+    // Pequeño delay para que el menú se cierre antes de hacer scroll
+    setTimeout(() => {
+      const element = document.querySelector(href)
+      if (element) {
+        // Calcular la posición considerando el header fijo
+        const headerOffset = 80
+        const elementPosition = element.getBoundingClientRect().top
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+
+        // Usar scrollTo para mejor compatibilidad en móviles
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        })
+      }
+    }, 100)
   }
 
   return (
@@ -97,21 +111,23 @@ export default function Header() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden mt-4 pb-4"
+              transition={{ duration: 0.2 }}
+              className="md:hidden mt-4 pb-4 overflow-hidden"
             >
               <div className="flex flex-col space-y-4">
                 {navItems.map((item) => (
-                  <a
+                  <motion.a
                     key={item.name}
                     href={item.href}
                     onClick={(e) => {
                       e.preventDefault()
                       handleNavClick(item.href)
                     }}
-                    className="text-gray-300 hover:text-primary-400 transition-colors duration-200 font-medium py-2"
+                    className="text-gray-300 hover:text-primary-400 active:text-primary-400 transition-colors duration-200 font-medium py-2 px-2 rounded-lg hover:bg-white/5"
+                    whileTap={{ scale: 0.95 }}
                   >
                     {item.name}
-                  </a>
+                  </motion.a>
                 ))}
               </div>
             </motion.div>

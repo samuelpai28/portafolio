@@ -34,8 +34,9 @@ export default function ConstellationBackground() {
     // Verificar que estamos en el navegador
     if (typeof window === 'undefined') return
 
-    // Configuración
-    const particleCount = 80
+    // Configuración - Ajustar para móviles
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+    const particleCount = isMobile ? 50 : 80 // Menos partículas en móviles para mejor rendimiento
     const connectionDistance = 150
     const mouseConnectionDistance = 200
     const particleSpeed = 0.3
@@ -43,21 +44,35 @@ export default function ConstellationBackground() {
     // Ajustar tamaño del canvas
     const resizeCanvas = () => {
       if (typeof window === 'undefined') return
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
+      const dpr = window.devicePixelRatio || 1
+      const rect = canvas.getBoundingClientRect()
+      canvas.width = rect.width * dpr
+      canvas.height = rect.height * dpr
+      ctx.scale(dpr, dpr)
+      // Recrear partículas si el tamaño cambió significativamente
+      if (particlesRef.current.length > 0) {
+        const newParticleCount = window.innerWidth < 768 ? 50 : 80
+        if (particlesRef.current.length !== newParticleCount) {
+          createParticles()
+        }
+      }
     }
     resizeCanvas()
     if (typeof window !== 'undefined') {
       window.addEventListener('resize', resizeCanvas)
+      window.addEventListener('orientationchange', resizeCanvas)
     }
 
     // Crear partículas
     const createParticles = () => {
+      const currentParticleCount = window.innerWidth < 768 ? 50 : 80
       particlesRef.current = []
-      for (let i = 0; i < particleCount; i++) {
+      const width = canvas.width / (window.devicePixelRatio || 1)
+      const height = canvas.height / (window.devicePixelRatio || 1)
+      for (let i = 0; i < currentParticleCount; i++) {
         particlesRef.current.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
+          x: Math.random() * width,
+          y: Math.random() * height,
           vx: (Math.random() - 0.5) * particleSpeed,
           vy: (Math.random() - 0.5) * particleSpeed,
           radius: Math.random() * 1.5 + 0.5,
@@ -68,17 +83,19 @@ export default function ConstellationBackground() {
 
     // Actualizar posición de partículas
     const updateParticles = () => {
+      const width = canvas.width / (window.devicePixelRatio || 1)
+      const height = canvas.height / (window.devicePixelRatio || 1)
       particlesRef.current.forEach((particle) => {
         particle.x += particle.vx
         particle.y += particle.vy
 
         // Rebotar en los bordes
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1
+        if (particle.x < 0 || particle.x > width) particle.vx *= -1
+        if (particle.y < 0 || particle.y > height) particle.vy *= -1
 
         // Mantener dentro del canvas
-        particle.x = Math.max(0, Math.min(canvas.width, particle.x))
-        particle.y = Math.max(0, Math.min(canvas.height, particle.y))
+        particle.x = Math.max(0, Math.min(width, particle.x))
+        particle.y = Math.max(0, Math.min(height, particle.y))
       })
     }
 
@@ -206,6 +223,19 @@ export default function ConstellationBackground() {
       mouseRef.current.y = e.clientY
     }
 
+    // Event listeners para touch (móviles)
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        mouseRef.current.x = e.touches[0].clientX
+        mouseRef.current.y = e.touches[0].clientY
+        setIsHovered(true)
+      }
+    }
+
+    const handleTouchEnd = () => {
+      setIsHovered(false)
+    }
+
     const handleMouseEnter = () => {
       setIsHovered(true)
     }
@@ -216,18 +246,28 @@ export default function ConstellationBackground() {
 
     // Solo agregar event listeners si estamos en el navegador
     if (typeof window !== 'undefined') {
-      // Usar el contenedor del canvas para los eventos del mouse
+      // Usar el contenedor del canvas para los eventos
       const container = canvas.parentElement
       if (container) {
         container.style.pointerEvents = 'auto'
+        container.style.touchAction = 'none' // Permite eventos táctiles
+        // Eventos de mouse
         container.addEventListener('mousemove', handleMouseMove)
         container.addEventListener('mouseenter', handleMouseEnter)
         container.addEventListener('mouseleave', handleMouseLeave)
+        // Eventos táctiles para móviles
+        container.addEventListener('touchmove', handleTouchMove, { passive: true })
+        container.addEventListener('touchend', handleTouchEnd, { passive: true })
+        container.addEventListener('touchcancel', handleTouchEnd, { passive: true })
       }
       // También agregar al canvas como respaldo
       canvas.addEventListener('mousemove', handleMouseMove)
       canvas.addEventListener('mouseenter', handleMouseEnter)
       canvas.addEventListener('mouseleave', handleMouseLeave)
+      // Eventos táctiles en el canvas
+      canvas.addEventListener('touchmove', handleTouchMove, { passive: true })
+      canvas.addEventListener('touchend', handleTouchEnd, { passive: true })
+      canvas.addEventListener('touchcancel', handleTouchEnd, { passive: true })
     }
 
     // Iniciar animación solo si estamos en el navegador
@@ -239,6 +279,7 @@ export default function ConstellationBackground() {
     return () => {
       if (typeof window !== 'undefined') {
         window.removeEventListener('resize', resizeCanvas)
+        window.removeEventListener('orientationchange', resizeCanvas)
         if (animationFrameRef.current !== undefined) {
           cancelAnimationFrame(animationFrameRef.current)
         }
@@ -246,13 +287,22 @@ export default function ConstellationBackground() {
       if (canvas) {
         const container = canvas.parentElement
         if (container) {
+          // Remover eventos de mouse
           container.removeEventListener('mousemove', handleMouseMove)
           container.removeEventListener('mouseenter', handleMouseEnter)
           container.removeEventListener('mouseleave', handleMouseLeave)
+          // Remover eventos táctiles
+          container.removeEventListener('touchmove', handleTouchMove)
+          container.removeEventListener('touchend', handleTouchEnd)
+          container.removeEventListener('touchcancel', handleTouchEnd)
         }
+        // Remover eventos del canvas
         canvas.removeEventListener('mousemove', handleMouseMove)
         canvas.removeEventListener('mouseenter', handleMouseEnter)
         canvas.removeEventListener('mouseleave', handleMouseLeave)
+        canvas.removeEventListener('touchmove', handleTouchMove)
+        canvas.removeEventListener('touchend', handleTouchEnd)
+        canvas.removeEventListener('touchcancel', handleTouchEnd)
       }
     }
   }, [isHovered, isMounted])
