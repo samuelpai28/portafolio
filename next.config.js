@@ -6,6 +6,8 @@ const nextConfig = {
   },
   // Optimizaciones para producción
   swcMinify: true,
+  // Configuración para Vercel
+  output: 'standalone',
   // Asegurar que los componentes del cliente se rendericen correctamente
   experimental: {
     optimizePackageImports: ['react-icons'],

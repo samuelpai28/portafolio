@@ -12,8 +12,21 @@ import {
   SiShopify,
 } from 'react-icons/si'
 import { HiCode, HiDatabase, HiChip } from 'react-icons/hi'
+import React from 'react'
 
-const skillCategories = [
+interface Skill {
+  name: string
+  level: number
+  icon?: React.ReactNode
+}
+
+interface SkillCategory {
+  title: string
+  icon: React.ReactNode
+  skills: Skill[]
+}
+
+const skillCategories: SkillCategory[] = [
   {
     title: 'Lenguajes de Programación',
     icon: <HiCode className="w-8 h-8" />,

@@ -216,6 +216,15 @@ export default function ConstellationBackground() {
 
     // Solo agregar event listeners si estamos en el navegador
     if (typeof window !== 'undefined') {
+      // Usar el contenedor del canvas para los eventos del mouse
+      const container = canvas.parentElement
+      if (container) {
+        container.style.pointerEvents = 'auto'
+        container.addEventListener('mousemove', handleMouseMove)
+        container.addEventListener('mouseenter', handleMouseEnter)
+        container.addEventListener('mouseleave', handleMouseLeave)
+      }
+      // También agregar al canvas como respaldo
       canvas.addEventListener('mousemove', handleMouseMove)
       canvas.addEventListener('mouseenter', handleMouseEnter)
       canvas.addEventListener('mouseleave', handleMouseLeave)
@@ -235,6 +244,12 @@ export default function ConstellationBackground() {
         }
       }
       if (canvas) {
+        const container = canvas.parentElement
+        if (container) {
+          container.removeEventListener('mousemove', handleMouseMove)
+          container.removeEventListener('mouseenter', handleMouseEnter)
+          container.removeEventListener('mouseleave', handleMouseLeave)
+        }
         canvas.removeEventListener('mousemove', handleMouseMove)
         canvas.removeEventListener('mouseenter', handleMouseEnter)
         canvas.removeEventListener('mouseleave', handleMouseLeave)
@@ -242,21 +257,19 @@ export default function ConstellationBackground() {
     }
   }, [isHovered, isMounted])
 
-  if (!isMounted) {
-    return (
-      <div
-        className="fixed inset-0 w-full h-full pointer-events-none z-0"
-        style={{ background: 'linear-gradient(to bottom, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%)' }}
-      />
-    )
-  }
-
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 w-full h-full pointer-events-none z-0"
+    <div 
+      className="fixed inset-0 w-full h-full z-0 overflow-hidden"
       style={{ background: 'linear-gradient(to bottom, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%)' }}
-    />
+    >
+      {isMounted && (
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 w-full h-full"
+          style={{ display: 'block' }}
+        />
+      )}
+    </div>
   )
 }
 
