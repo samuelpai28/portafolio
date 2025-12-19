@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { HiArrowDown, HiCode, HiDatabase, HiChip } from 'react-icons/hi'
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa'
 
@@ -56,15 +57,54 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="mb-6"
           >
+            {/* Foto circular */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.1, duration: 0.6, type: 'spring' }}
+              className="flex justify-center mb-8"
+            >
+              <div className="relative w-48 h-48 md:w-64 md:h-64">
+                {/* Marco circular con gradiente */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary-400 via-primary-300 to-primary-200 p-1">
+                  <div className="w-full h-full rounded-full bg-gray-900 p-1">
+                    <div className="relative w-full h-full rounded-full overflow-hidden">
+                      <Image
+                        src="/foto.jpg"
+                        alt="Samuel Gil López"
+                        fill
+                        className="object-cover"
+                        priority
+                        sizes="(max-width: 768px) 192px, 256px"
+                      />
+                    </div>
+                  </div>
+                </div>
+                {/* Efecto de brillo animado */}
+                <motion.div
+                  className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                  animate={{
+                    rotate: [0, 360],
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: 'linear',
+                  }}
+                  style={{ transformOrigin: 'center' }}
+                />
+              </div>
+            </motion.div>
+
             <motion.div
               className="inline-flex items-center space-x-4 mb-6"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
             >
-              <HiCode className="w-12 h-12 text-primary-600" />
-              <HiDatabase className="w-12 h-12 text-primary-600" />
-              <HiChip className="w-12 h-12 text-primary-600" />
+              <HiCode className="w-12 h-12 text-primary-400" />
+              <HiDatabase className="w-12 h-12 text-primary-400" />
+              <HiChip className="w-12 h-12 text-primary-400" />
             </motion.div>
             
             <h1 className="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-primary-400 via-primary-300 to-primary-200 bg-clip-text text-transparent">
