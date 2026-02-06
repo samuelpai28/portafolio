@@ -8,7 +8,7 @@ const education = [
   {
     degree: 'Ingeniería de Datos y Software',
     institution: 'Universidad De San Buenaventura',
-    period: '2019-2023',
+    period: '2021-2026',
     description: '9° Semestre de Ingeniería de Datos y Software',
     icon: '🎓',
   },
