@@ -64,3 +64,4 @@ No se requieren variables de entorno para este proyecto.
 - Todos los componentes usan `'use client'` para evitar problemas de SSR
 - El PDF del CV debe estar en `public/CV_Samuel_Gil_Lopez.pdf`
 
+

@@ -1,114 +1,97 @@
-# Portafolio de Samuel Gil López
+<h1 align="center">👋 Hi, I'm Samuel Gil López</h1>
+<h3 align="center">Data & Software Engineering | Data Analytics | Business Intelligence</h3>
 
-Portafolio profesional moderno desarrollado con las últimas tecnologías web.
-
-## 🚀 Tecnologías Utilizadas
-
-- **Next.js 14** - Framework de React para producción
-- **React 18** - Biblioteca de JavaScript para interfaces de usuario
-- **TypeScript** - Superset de JavaScript con tipado estático
-- **Tailwind CSS** - Framework de CSS utility-first
-- **Framer Motion** - Biblioteca de animaciones para React
-- **React Icons** - Iconos populares para React
-- **React Intersection Observer** - Para animaciones al hacer scroll
-
-## 📋 Características
-
-- ✨ Diseño moderno y responsive
-- 🎨 Animaciones suaves con Framer Motion
-- 📱 Totalmente responsive (mobile-first)
-- ⚡ Optimizado para rendimiento
-- 🎯 SEO optimizado
-- 🌙 Gradientes y efectos visuales modernos
-
-## 🛠️ Instalación
-
-1. Clona el repositorio:
-```bash
-git clone <tu-repositorio>
-cd portafolio-samuel-gil
-```
-
-2. Instala las dependencias:
-```bash
-npm install
-# o
-yarn install
-```
-
-3. Ejecuta el servidor de desarrollo:
-```bash
-npm run dev
-# o
-yarn dev
-```
-
-4. Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
-
-## 📦 Scripts Disponibles
-
-- `npm run dev` - Inicia el servidor de desarrollo
-- `npm run build` - Construye la aplicación para producción
-- `npm run start` - Inicia el servidor de producción
-- `npm run lint` - Ejecuta el linter
-
-## 🚀 Despliegue en Vercel
-
-Este proyecto está optimizado para desplegarse en Vercel:
-
-1. Haz push de tu código a GitHub
-2. Importa el proyecto en [Vercel](https://vercel.com)
-3. Vercel detectará automáticamente Next.js y configurará el despliegue
-4. ¡Listo! Tu portafolio estará en línea
-
-O usa la CLI de Vercel:
-```bash
-npm i -g vercel
-vercel
-```
-
-## 📝 Estructura del Proyecto
-
-```
-portafolio-samuel-gil/
-├── app/
-│   ├── globals.css
-│   ├── layout.tsx
-│   └── page.tsx
-├── components/
-│   ├── About.tsx
-│   ├── Contact.tsx
-│   ├── Education.tsx
-│   ├── Experience.tsx
-│   ├── Footer.tsx
-│   ├── Header.tsx
-│   ├── Hero.tsx
-│   ├── Projects.tsx
-│   └── Skills.tsx
-├── public/
-├── package.json
-├── tsconfig.json
-├── tailwind.config.js
-└── next.config.js
-```
-
-## 🎨 Personalización
-
-Puedes personalizar los colores en `tailwind.config.js` modificando la paleta de `primary`.
-
-Para cambiar el contenido, edita los componentes en la carpeta `components/`.
-
-## 📄 Licencia
-
-Este proyecto es de uso personal. Todos los derechos reservados.
-
-## 👤 Autor
-
-**Samuel Gil López**
-- Email: gillopezsamuel65@gmail.com
-- LinkedIn: [Samuel Gil López](https://www.linkedin.com/in/samuel-gil-l%C3%B3pez-a833b31a9)
+<p align="center">
+  <a href="https://portafolio-samuel-gil.vercel.app" target="_blank">
+    🌐 Portfolio
+  </a>
+  •
+  <a href="https://www.linkedin.com/in/samuel-gil-l%C3%B3pez-a833b31a9/" target="_blank">
+    LinkedIn
+  </a>
+  •
+  <a href="gillopezsamuel65@gmail.com">
+    Gmail
+  </a>
+</p>
 
 ---
 
-Desarrollado con ❤️ usando Next.js y React
+## 🧠 About Me
 
+I am a **Data and Software Engineering student** with a strong foundation in **programming, data analysis, and applied statistics**, focused on transforming data into actionable insights.
+
+I have experience working with **databases, ETL processes, data visualization, and machine learning concepts**, applying analytical thinking to solve real-world problems and support decision-making.
+
+My interests lie in **data-driven projects**, **business intelligence**, and the **application of technology to improve processes and organizational performance**, especially within financial and corporate environments.
+
+### 🔍 Key Strengths
+- 📊 Data analysis and applied statistics  
+- 🤖 Business intelligence and data visualization  
+- 💾 Database management and ETL processes  
+- 🧠 Analytical thinking and problem-solving  
+- 🤝 Teamwork and collaborative environments  
+
+---
+
+## 🌐 Socials
+
+<p align="left">
+  <a href="https://www.linkedin.com/in/samuel-gil-l%C3%B3pez-a833b31a9/" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/>
+  </a>
+  <a href="gillopezsamuel65@gmail.com">
+    <img src="https://img.shields.io/badge/Gmail-EA4335?style=for-the-badge&logo=gmail&logoColor=white"/>
+  </a>
+</p>
+
+---
+
+## 🛠️ Tech Stack
+
+### 💻 Programming & Data
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)
+![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+
+### 📊 Data & Analytics
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas)
+![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy)
+![Power BI](https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=powerbi)
+![Excel](https://img.shields.io/badge/Excel-217346?style=for-the-badge&logo=microsoft-excel)
+
+### 🗄️ Databases & Tools
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github)
+
+### ☁️ Other
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+
+---
+
+## 📈 GitHub Stats
+
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=TU_USUARIO&show_icons=true&theme=radical" height="160"/>
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=TU_USUARIO&theme=radical" height="160"/>
+</p>
+
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=TU_USUARIO&layout=compact&theme=radical"/>
+</p>
+
+---
+
+## 💡 Random Dev Quote
+
+> *"Size almost always involves complexity, and complexity confuses programmers.  
+> Confused programmers, in turn, introduce mistakes (bugs) into programs."*  
+> — **Ken Thompson**
+
+---
+
+<p align="center">
+  🚀 Always learning, building, and improving through data.
+</p>
